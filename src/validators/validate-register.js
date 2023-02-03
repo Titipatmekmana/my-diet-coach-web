@@ -10,6 +10,7 @@ const reqisterSchema = Joi.object({
   ),
   password: Joi.string().alphanum().min(6).required().trim(),
   confirmPassword: Joi.string().valid(Joi.ref("password")).required().trim(),
+  role: Joi.string().required(),
 });
 
 const validateRegister = (input) => {

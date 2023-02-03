@@ -9,6 +9,7 @@ const initialInput = {
   emailOrMobile: "",
   password: "",
   confirmPassword: "",
+  role: "user",
 };
 
 const reqisterSchema = Joi.object({
@@ -125,7 +126,25 @@ export default function RegisterForm() {
           onChange={handleChangeInput}
           error={error.confirmPassword}
         />
-      </div>{" "}
+      </div>
+      <label class="form-control">
+        <input
+          type="radio"
+          name="role"
+          value="user"
+          onChange={handleChangeInput}
+        />
+        User
+      </label>
+      <label class="form-control">
+        <input
+          type="radio"
+          name="role"
+          value="admin"
+          onChange={handleChangeInput}
+        />
+        Admin
+      </label>
       <div className="mt-6">
         <button
           type="submit"
