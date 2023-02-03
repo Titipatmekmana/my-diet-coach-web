@@ -1,5 +1,6 @@
 import { useState } from "react";
 import * as Joi from "joi";
+import Input from "../../components/Input";
 // import { object, string } from "joi";
 
 const initialInput = {
@@ -40,7 +41,6 @@ export default function RegisterForm() {
     e.preventDefault();
     const { value, error } = validateRegister(input);
     console.log(value);
-    console.dir(error.details, "error");
     setError(error);
   };
 
@@ -51,93 +51,81 @@ export default function RegisterForm() {
       </h1>
       <div className="mb-2">
         <label
-          for="fname"
+          htmlFor="fname"
           className="block text-sm font-semibold text-gray-800"
         >
           First name
         </label>
-
-        <input
-          type="text"
+        <Input
           placeholder="First name"
           name="firstName"
           value={input.firstName}
           onChange={handleChangeInput}
-          className="block  w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400  focus:outline-none focus:ring focus:ring-opacity-40"
+          error={error.firstName}
         />
-        {error.firstName && (
-          <div className=" invalid:border-green-500">{"error"}</div>
-        )}
       </div>
-
       <div className="mb-2">
         <label
-          for="lname"
+          htmlFor="lname"
           className="block text-sm font-semibold text-gray-800"
         >
           last name
         </label>
-        <input
-          type="text"
+        <Input
           placeholder="Last name"
           name="lastName"
           value={input.lastName}
           onChange={handleChangeInput}
-          className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+          error={error.lastName}
         />
       </div>
-
       <div className="mb-2">
         <label
-          for="Email or Mobile"
+          htmlFor="Email or Mobile"
           className="block text-sm font-semibold text-gray-800"
         >
           Email or Mobile
         </label>
-        <input
-          type="text"
-          placeholder="email"
+        <Input
+          placeholder=" Email or Mobile"
           name="emailOrMobile"
           value={input.emailOrMobile}
           onChange={handleChangeInput}
-          className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+          error={error.emailOrMobile}
         />
       </div>
-
       <div className="mb-2">
         <label
-          for="password"
+          htmlFor="password"
           className="block text-sm font-semibold text-gray-800"
         >
           New Password
         </label>
-        <input
-          type="password"
-          placeholder="password"
+        <Input
+          type={"password"}
+          placeholder="  New Password"
           name="password"
           value={input.password}
           onChange={handleChangeInput}
-          className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+          error={error.password}
         />
       </div>
-
       <div className="mb-2">
         <label
-          for="password"
+          htmlFor="password"
           className="block text-sm font-semibold text-gray-800"
         >
           Confirm Password
         </label>
-        <input
-          type="password"
-          placeholder="confirmPassword"
+        <Input
+          type={"password"}
+          placeholder="  Confirm Password"
           name="confirmPassword"
           value={input.confirmPassword}
           onChange={handleChangeInput}
-          className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+          error={error.confirmPassword}
         />
-      </div>
-
+      </div>{" "}
       <div className="mt-6">
         <button
           type="submit"

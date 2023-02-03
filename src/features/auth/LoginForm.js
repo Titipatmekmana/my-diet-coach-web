@@ -1,7 +1,7 @@
 import { useState } from "react";
 // import RegisterContainer from "./RegisterContainer";
-import Modal from "../../components/Modal";
-import RegisterForm from "./RegisterForm";
+// import Modal from "../../components/Modal";
+// import RegisterForm from "./RegisterForm";
 
 export default function LoginFrom() {
   const [open, setOpen] = useState(false);
@@ -9,7 +9,7 @@ export default function LoginFrom() {
     <form className="mt-6">
       <div className="mb-2">
         <label
-          for="email"
+          htmlFor="email"
           className="block text-sm font-semibold text-gray-800"
         >
           Email
@@ -22,7 +22,7 @@ export default function LoginFrom() {
 
       <div className="mb-2">
         <label
-          for="password"
+          htmlFor="password"
           className="block text-sm font-semibold text-gray-800"
         >
           Password
