@@ -67,21 +67,21 @@ export default function FoodPage() {
         </div>
       </div>
 
-      <div class="flex justify-center">
-        <ul class="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
-          <li class="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg bg-blue-600 text-white">
+      <div className="flex justify-center">
+        <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
+          <li className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg bg-blue-600 text-white">
             An active item
           </li>
-          <li class="px-6 py-2 border-b border-gray-200 w-full">
+          <li className="px-6 py-2 border-b border-gray-200 w-full">
             A second item
           </li>
-          <li class="px-6 py-2 border-b border-gray-200 w-full">
+          <li className="px-6 py-2 border-b border-gray-200 w-full">
             A third item
           </li>
-          <li class="px-6 py-2 border-b border-gray-200 w-full">
+          <li className="px-6 py-2 border-b border-gray-200 w-full">
             A fourth item
           </li>
-          <li class="px-6 py-2 w-full rounded-b-lg">And a fifth one</li>
+          <li className="px-6 py-2 w-full rounded-b-lg">And a fifth one</li>
         </ul>
       </div>
     </>

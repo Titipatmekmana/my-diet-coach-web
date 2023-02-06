@@ -144,7 +144,7 @@ export default function RegisterForm({ doClose }) {
           error={error.confirmPassword}
         />
       </div>
-      <label class="form-control">
+      <label className="form-control">
         <input
           type="radio"
           name="role"
@@ -153,7 +153,7 @@ export default function RegisterForm({ doClose }) {
         />
         User
       </label>
-      <label class="form-control">
+      <label className="form-control">
         <input
           type="radio"
           name="role"

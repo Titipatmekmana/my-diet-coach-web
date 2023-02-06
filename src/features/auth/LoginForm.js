@@ -1,12 +1,31 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 // import RegisterContainer from "./RegisterContainer";
 // import Modal from "../../components/Modal";
 // import RegisterForm from "./RegisterForm";
 
+import useAuth from "../../hooks/useAuth";
+
 export default function LoginFrom() {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const [emailOrMobile, setEmailOrMobile] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { login } = useAuth();
+
+  const handleSubmitForm = async (e) => {
+    try {
+      e.preventDefault();
+      await login(emailOrMobile, password);
+      toast.success("success login");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.response?.data.message);
+    }
+  };
+
   return (
-    <form className="mt-6">
+    <form className="mt-6" onSubmit={handleSubmitForm}>
       <div className="mb-2">
         <label
           htmlFor="email"
@@ -15,8 +34,11 @@ export default function LoginFrom() {
           Email
         </label>
         <input
-          type="email"
+          type="text"
           className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+          placeholder="Email address or phone number"
+          value={emailOrMobile}
+          onChange={(e) => setEmailOrMobile(e.target.value)}
         />
       </div>
 
@@ -30,6 +52,9 @@ export default function LoginFrom() {
         <input
           type="password"
           className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-blue focus:outline-none focus:bg-purple-600">
           Login
