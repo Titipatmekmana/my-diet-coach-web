@@ -20,7 +20,11 @@ export default function RegisterContainer() {
           setOpen(false);
         }}
       >
-        <RegisterForm />
+        <RegisterForm
+          doClose={() => {
+            setOpen(false);
+          }}
+        />
       </Modal>
     </div>
   );

@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+
 import * as Joi from "joi";
 import Input from "../../components/Input";
 import * as authApi from "../../apis/auth-api";
-// import { object, string } from "joi";
 
 const initialInput = {
   user_firstname: "",
@@ -31,7 +32,7 @@ const validateRegister = (input) => {
   });
 };
 
-export default function RegisterForm() {
+export default function RegisterForm({ doClose }) {
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState(initialInput);
 
@@ -50,10 +51,15 @@ export default function RegisterForm() {
         setError(result);
       } else {
         setError({});
-        console.log("eeeeeee");
         await authApi.register(input);
+        setInput(initialInput);
+        toast.success("success register. please log in to continue.");
+        doClose();
       }
-    } catch (err) {}
+    } catch (err) {
+      // add
+      toast.error(err.response?.data.message);
+    }
   };
 
   return (
