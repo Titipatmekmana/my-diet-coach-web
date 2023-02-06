@@ -1,8 +1,8 @@
 import Joi from "joi";
 
 const reqisterSchema = Joi.object({
-  firstName: Joi.string().trim().required(),
-  lastName: Joi.string().trim().required(),
+  user_firstname: Joi.string().trim().required(),
+  user_lastname: Joi.string().trim().required(),
 
   emailOrMobile: Joi.alternatives().try(
     Joi.string().email({ tlds: false }),

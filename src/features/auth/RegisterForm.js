@@ -1,11 +1,12 @@
 import { useState } from "react";
 import * as Joi from "joi";
 import Input from "../../components/Input";
+import * as authApi from "../../apis/auth-api";
 // import { object, string } from "joi";
 
 const initialInput = {
-  firstName: "",
-  lastName: "",
+  user_firstname: "",
+  user_lastname: "",
   emailOrMobile: "",
   password: "",
   confirmPassword: "",
@@ -13,8 +14,8 @@ const initialInput = {
 };
 
 const reqisterSchema = Joi.object({
-  firstName: Joi.string().trim().required(),
-  lastName: Joi.string().trim().required(),
+  user_firstname: Joi.string().trim().required(),
+  user_lastname: Joi.string().trim().required(),
 
   emailOrMobile: Joi.alternatives().try(
     Joi.string().email({ tlds: false }),
@@ -38,11 +39,21 @@ export default function RegisterForm() {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
-    const { value, error } = validateRegister(input);
-    console.log(value);
-    setError(error);
+  const handleSubmitForm = async (e) => {
+    try {
+      console.log(input);
+      console.log("qweqwe");
+      e.preventDefault();
+      const result = validateRegister(input);
+      console.log(result);
+      if (!result) {
+        setError(result);
+      } else {
+        setError({});
+        console.log("eeeeeee");
+        await authApi.register(input);
+      }
+    } catch (err) {}
   };
 
   return (
@@ -59,10 +70,10 @@ export default function RegisterForm() {
         </label>
         <Input
           placeholder="First name"
-          name="firstName"
-          value={input.firstName}
+          name="user_firstname"
+          value={input.user_firstname}
           onChange={handleChangeInput}
-          error={error.firstName}
+          error={error.user_firstname}
         />
       </div>
       <div className="mb-2">
@@ -74,10 +85,10 @@ export default function RegisterForm() {
         </label>
         <Input
           placeholder="Last name"
-          name="lastName"
-          value={input.lastName}
+          name="user_lastname"
+          value={input.user_lastname}
           onChange={handleChangeInput}
-          error={error.lastName}
+          error={error.user_lastname}
         />
       </div>
       <div className="mb-2">
