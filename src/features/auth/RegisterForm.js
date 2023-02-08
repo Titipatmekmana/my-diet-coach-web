@@ -42,11 +42,8 @@ export default function RegisterForm({ doClose }) {
 
   const handleSubmitForm = async (e) => {
     try {
-      console.log(input);
-      console.log("qweqwe");
       e.preventDefault();
       const result = validateRegister(input);
-      console.log(result);
       if (!result) {
         setError(result);
       } else {
@@ -67,6 +64,7 @@ export default function RegisterForm({ doClose }) {
       <h1 className="text-3xl font-semibold text-center text-purple-700 ">
         Sing Up
       </h1>
+
       <div className="mb-2">
         <label
           htmlFor="fname"
@@ -82,6 +80,7 @@ export default function RegisterForm({ doClose }) {
           error={error.user_firstname}
         />
       </div>
+
       <div className="mb-2">
         <label
           htmlFor="lname"

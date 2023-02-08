@@ -57,7 +57,6 @@ export default function RegisterPage() {
           </div>
         </form>
         <p className="mt-8 text-xs font-light text-center text-gray-700">
-          {" "}
           Already have an account?{" "}
           <a href="#" className="font-medium text-purple-600 hover:underline">
             Sign up
