@@ -1,10 +1,10 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import Menu from "./Menu";
 
 export default function Header() {
-  const { navbar, setNavbar } = useState(false);
+  // const { navbar, setNavbar } = useState(false);
   return (
     <nav className="w-full bg-purple-500 shadow">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
@@ -19,7 +19,7 @@ export default function Header() {
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    class="w-6 h-6"
+                    className="w-6 h-6"
                   >
                     <path
                       strokeLinecap="round"

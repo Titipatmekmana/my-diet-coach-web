@@ -21,9 +21,9 @@ export default function DropDown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const {
-    authenticatedUser: { role, id },
-  } = useAuth();
+  // const {
+  //   // authenticatedUser: { role, id },
+  // } = useAuth();
 
   return (
     <div className=" dropdown" ref={dropdownEl}>

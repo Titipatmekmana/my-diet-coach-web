@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import * as authApi from "../apis/auth-api";
 import {
@@ -11,13 +11,28 @@ export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
   const [authenticatedUser, setAuthenticatedUser] = useState(
-    getAccessToken() ? true : null
+    getAccessToken() ? {} : null
   );
+
+  useEffect(() => {
+    const fetchAuthUser = async () => {
+      try {
+        const res = await authApi.getMe();
+        setAuthenticatedUser(res.data.user);
+      } catch (err) {
+        removeAccessToken();
+      }
+    };
+    if (getAccessToken()) {
+      fetchAuthUser();
+    }
+  }, []);
 
   const login = async (emailOrMobile, password) => {
     const res = await authApi.login({ emailOrMobile, password });
     setAccessToken(res.data.accessToken);
-    setAuthenticatedUser(true);
+    console.log(res.data.user);
+    setAuthenticatedUser(res.data.user);
   };
 
   const logout = () => {
@@ -26,7 +41,9 @@ export default function AuthContextProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ authenticatedUser, login, logout }}>
+    <AuthContext.Provider
+      value={{ authenticatedUser, login, logout, setAuthenticatedUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

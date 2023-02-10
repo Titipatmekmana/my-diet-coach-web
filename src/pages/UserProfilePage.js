@@ -2,7 +2,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import validateProfileUser from "../validators/validate-profileuser";
 import * as authApi from "../apis/auth-api";
-import useLoading from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const initialInputUserProfile = {
   weight: "",
@@ -11,11 +12,13 @@ const initialInputUserProfile = {
   user_bdate: "",
 };
 
-export default function UserForm({ onClose }) {
+export default function UserForm({}) {
   const [input, setInput] = useState(initialInputUserProfile);
   const [error, setError] = useState({});
 
-  const { startLoading, stopLoading } = useLoading();
+  const navigate = useNavigate();
+
+  const { setAuthenticatedUser } = useAuth();
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -33,8 +36,13 @@ export default function UserForm({ onClose }) {
         await authApi.userProfile(input);
 
         setInput(initialInputUserProfile);
-        onClose();
+        // onClose();
+        setAuthenticatedUser((prev) => {
+          const clone = { ...prev, user_Bdate: input.user_bdate };
+          return clone;
+        });
         toast.success("success ");
+        navigate("/");
       }
     } catch (err) {
       console.log(err);
@@ -45,7 +53,7 @@ export default function UserForm({ onClose }) {
 
   return (
     <form onSubmit={handleSubmitForm}>
-      <div class="relative z-0 w-full mb-6 group">
+      <div className="relative z-0 w-full mb-6 group">
         <input
           className=""
           type="text"
@@ -56,7 +64,7 @@ export default function UserForm({ onClose }) {
         />
       </div>
 
-      <div class="relative z-0 w-full mb-6 group">
+      <div className="relative z-0 w-full mb-6 group">
         <input
           className=""
           type="text"
@@ -67,7 +75,7 @@ export default function UserForm({ onClose }) {
         />
       </div>
 
-      <div class="flex items-center mb-4">
+      <div className="flex items-center mb-4">
         <input
           type="radio"
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -78,7 +86,7 @@ export default function UserForm({ onClose }) {
 
         <label>Male</label>
       </div>
-      <div class="flex items-center mb-4">
+      <div className="flex items-center mb-4">
         <input
           type="radio"
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -89,11 +97,11 @@ export default function UserForm({ onClose }) {
         <label>Female</label>
       </div>
 
-      <div class="relative max-w-sm">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+      <div className="relative max-w-sm">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg
             aria-hidden="true"
-            class="w-5 h-5 text-gray-500 dark:text-gray-400"
+            className="w-5 h-5 text-gray-500 dark:text-gray-400"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +115,7 @@ export default function UserForm({ onClose }) {
         </div>
         <input
           type="date"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Select date"
           name="user_bdate"
           onChange={handleChangeInput}
@@ -116,7 +124,7 @@ export default function UserForm({ onClose }) {
 
       <button
         type="submit"
-        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         Submit
       </button>
