@@ -15,7 +15,7 @@ export default function Modal(props) {
         onClick={(e) => e.stopPropagation()}
       >
         <span
-          className="close absolute top-0 right-1 w-min text-4xl font-bold cursor-pointer text-red-500"
+          className="close absolute top-0 right-1 w-min text-4xl font-bold cursor-pointer text-violet-500"
           onClick={doClose}
         >
           &times;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import Menu from "./Menu";
 
 export default function DropDown() {
   const [isOpen, setOpen] = useState(false);
@@ -21,17 +21,13 @@ export default function DropDown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // const {
-  //   // authenticatedUser: { role, id },
-  // } = useAuth();
-
   return (
-    <div className=" dropdown" ref={dropdownEl}>
+    <div className=" dropdown flex m-3" ref={dropdownEl}>
       <button
-        className="text-black hover:text-white border border-purple-200 hover:bg-purple-600 focus:ring-4 focus:outline-none focus:ring-transparent font-medium rounded-full text-sm px-4 py-2.5 text-center inline-flex items-center"
+        className="text-black hover:text-purple border border-purple-200 hover:bg-purple-600 focus:ring-4 focus:outline-none focus:ring-transparent font-medium rounded-full text-sm px-4 py-2.5 text-center inline-flex items-center"
         onClick={handleDropDown}
       >
-        <i className="fa-solid fa-desktop"></i>
+        <i class="fa-solid fa-grip-lines text-white"></i>
       </button>
 
       <div
@@ -42,14 +38,12 @@ export default function DropDown() {
       >
         <ul className=" z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow ">
           <li>
-            <Link to="#" className="block py-2 px-4 hover:bg-gray-100">
-              ......
-            </Link>
+            <Menu />
           </li>
           <li>
             <button
               onClick={logout}
-              className=" text-red-500 block py-2 px-4 hover:bg-gray-100 pr-[90px]"
+              className=" text-red-600 block py-2 px-4 hover:bg-gray-100 pr-[90px]"
             >
               Log out
             </button>

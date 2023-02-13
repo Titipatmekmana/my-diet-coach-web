@@ -3,35 +3,36 @@ import MenuItem from "./MenuItem";
 
 const menuList = [
   {
-    icon: <i className="fa-solid fa-dumbbell" />,
+    icon: <span>Main Page</span>,
     pathname: "/",
   },
   {
-    icon: <i className="fa-solid fa-utensils" />,
+    icon: <span>Foood</span>,
     pathname: "/food",
   },
   {
-    icon: <i className="fa-solid fa-person-walking" />,
-    pathname: "/excercises",
+    icon: <span>Daliy</span>,
+    pathname: "/daliySats",
+  },
+  {
+    icon: <span>Profile User</span>,
+    pathname: "/userProfile",
   },
 ];
 
 export default function Menu() {
   const location = useLocation();
-  console.log(location);
   return (
-    <div className="flex-col">
-      <div className={"flex-col	 pb-3 mt-8 md:block md:pb-0 md:mt-0 block"}>
-        {menuList.map((el) => (
-          <MenuItem
-            key={el.pathname}
-            to={el.pathname}
-            active={location.pathname === el.pathname}
-          >
-            {el.icon}
-          </MenuItem>
-        ))}
-      </div>
+    <div className={"pb-3 mt-8 md:block md:pb-0 md:mt-0 flex"}>
+      {menuList.map((el) => (
+        <MenuItem
+          key={el.pathname}
+          to={el.pathname}
+          active={location.pathname === el.pathname}
+        >
+          {el.icon}
+        </MenuItem>
+      ))}
     </div>
   );
 }

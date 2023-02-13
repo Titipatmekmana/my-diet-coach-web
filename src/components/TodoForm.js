@@ -14,10 +14,11 @@ const InitialFoods = {
 };
 
 export default function FoodFrom() {
-  const [foodName, setFoodName] = useState([InitialFoods]);
+  const [foodName, setFoodName] = useState([]);
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
   console.log(foodName);
+
   const handleSumit = async (e) => {
     e.preventDefault();
     if (validator.isEmpty(input, { ignore_whitespace: true })) {
@@ -28,6 +29,13 @@ export default function FoodFrom() {
       console.log(foodNameList.data);
     }
   };
+
+  // const deleteFoodList = foodId => {
+  //   const idx = foodName.findIndex(el => el.name === name);
+  //   const newFoodState = [...foodName];
+  //   newFoodState.splice()
+  // }
+
   return (
     <div>
       <form onSubmit={handleSumit}>
@@ -37,22 +45,28 @@ export default function FoodFrom() {
             value={input}
             placeholder="Enter input"
             onChange={(e) => setInput(e.target.value)}
-            className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-full focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            className="block w-96 px-4 py-2 text-black bg-white border rounded-full focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
           />
+
           <button className="px-4 text-white bg-purple-600 rounded-full ">
-            <i className="fa-solid fa-check" />
-          </button>
-          <button className="px-4 text-white bg-purple-600 rounded-full ">
-            <i className="fa-solid fa-xmark" />
+            <i className="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
       </form>
-      <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900">
-        {/* {console.log(foodName)} */}
+      <ul className="bg-white rounded-lg border border-gray-200 w-96 text-gray-900 mt-3">
         {foodName?.map((el) => (
           <TodoItem foodCal={el} />
         ))}
       </ul>
     </div>
   );
+}
+
+{
+  /* <button className="px-4 text-white bg-purple-600 rounded-full ">
+<i className="fa-solid fa-magnifying-glass"></i>
+</button>
+<button className="px-4 text-white bg-purple-600 rounded-full ">
+  <i className="fa-solid fa-xmark" />
+</button> */
 }

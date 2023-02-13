@@ -86,7 +86,7 @@ export default function RegisterForm({ doClose }) {
           htmlFor="lname"
           className="block text-sm font-semibold text-gray-800"
         >
-          last name
+          Last name
         </label>
         <Input
           placeholder="Last name"
@@ -143,28 +143,35 @@ export default function RegisterForm({ doClose }) {
           error={error.confirmPassword}
         />
       </div>
-      <label className="form-control">
-        <input
-          type="radio"
-          name="role"
-          value="user"
-          onChange={handleChangeInput}
-        />
-        User
-      </label>
-      <label className="form-control">
-        <input
-          type="radio"
-          name="role"
-          value="admin"
-          onChange={handleChangeInput}
-        />
-        Admin
-      </label>
+      <div className="flex justify-between mt-3">
+        <div className="flex justify-items-center p-3 border border-gray-200 rounded-full text-white dark:border-gray-700 bg-gradient-to-r from-purple-400 to-blue-500 hover:from-purple-200 hover:to-purple-400 drop-shadow-lg ">
+          <label className="form-control ">
+            <input
+              type="radio"
+              name="role"
+              value="user"
+              onChange={handleChangeInput}
+            />
+            User
+          </label>
+        </div>
+        <div className="flex justify-items-center p-3 border border-gray-200 rounded-full text-white dark:border-gray-700 bg-gradient-to-r from-red-400 to-yellow-500 hover:from-yellow-200 hover:to-red-400 drop-shadow-lg">
+          <label className="form-control ">
+            <input
+              type="radio"
+              name="role"
+              value="admin"
+              onChange={handleChangeInput}
+            />
+            Admin
+          </label>
+        </div>
+      </div>
+
       <div className="mt-6">
         <button
           type="submit"
-          className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+          className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600 drop-shadow-lg"
         >
           Sign in
         </button>

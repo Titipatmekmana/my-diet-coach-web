@@ -10,6 +10,7 @@ import FoodDetailPage from "../pages/FoodDetailPage";
 import DaliySatsPage from "../pages/DaliySatsPage";
 import ProtectedRoute from "../features/auth/ProtectedRoute";
 import AuthLayout from "../Layouts/AuthLayout";
+import FoodContextProvider from "../contexts/foodContext";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,9 @@ const router = createBrowserRouter([
   {
     element: (
       <ProtectedRoute>
-        <AuthLayout />
+        <FoodContextProvider>
+          <AuthLayout />
+        </FoodContextProvider>
       </ProtectedRoute>
     ),
     children: [
@@ -40,7 +43,7 @@ const router = createBrowserRouter([
         element: <UserProfilePage />,
       },
       {
-        path: "/food",
+        path: "/food/:meal",
         element: <FoodPage />,
       },
       {
