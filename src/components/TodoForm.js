@@ -30,12 +30,6 @@ export default function FoodFrom() {
     }
   };
 
-  // const deleteFoodList = foodId => {
-  //   const idx = foodName.findIndex(el => el.name === name);
-  //   const newFoodState = [...foodName];
-  //   newFoodState.splice()
-  // }
-
   return (
     <div>
       <form onSubmit={handleSumit}>

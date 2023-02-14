@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as foodDateApi from "../apis/foodData-api";
+import useAuth from "../hooks/useAuth";
 import useFood from "../hooks/useFood";
+import axios from "../config/axios";
 
 export default function TodoContent(props) {
   const { getFood, setGetFood } = useState("");
@@ -11,29 +13,55 @@ export default function TodoContent(props) {
   const { setDinner } = useFood();
   const { meal } = useParams();
 
+  const {
+    authenticatedUser: { id },
+  } = useAuth();
+
   const handleSumitFood = async () => {
-    await foodDateApi.getfoodData({ Foodid: props.foodCal.id });
+    console.log({ foodId: props.foodCal.id, userId: id });
+    // await axios.post("/food/foodDate", {
+    //   foodId: props.foodCal.id,
+    //   userId: id,
+    // });
+    // alert("00000000");
+    await foodDateApi.getfoodData({
+      foodId: props.foodCal.id,
+      userId: id,
+    });
+
     if (meal === "brakefast")
       setBrakefast((prev) => [
         ...prev,
-        { name: props.foodCal.name, calories: props.foodCal.calories },
+        {
+          id: props.foodCal.id,
+          name: props.foodCal.name,
+          calories: props.foodCal.calories,
+        },
       ]);
     else if (meal === "lunch")
       setLunch((prev) => [
         ...prev,
-        { name: props.foodCal.name, calories: props.foodCal.calories },
+        {
+          id: props.foodCal.id,
+          name: props.foodCal.name,
+          calories: props.foodCal.calories,
+        },
       ]);
     else if (meal === "dinner")
       setDinner((prev) => [
         ...prev,
-        { name: props.foodCal.name, calories: props.foodCal.calories },
+        {
+          id: props.foodCal.id,
+          name: props.foodCal.name,
+          calories: props.foodCal.calories,
+        },
       ]);
+
     navigate("/");
   };
 
-  // const deleSubmitFood = () => {
-  //   await;
-  // };
+  // const deleteFood = () => {};
+  // const deleSubmitFood = ()  props.foodCal.name || props.foodCal.carbs;
 
   return (
     <div className="flex justify-between">
@@ -68,10 +96,7 @@ export default function TodoContent(props) {
         >
           <i className="fa-solid fa-check"></i>
         </button>
-        <button
-          className="px-4 text-white bg-red-600 rounded-md w-24 m-3 p-3"
-          // onClick={(el) => setGetFood(el.target.value)}
-        >
+        <button className="px-4 text-white bg-red-600 rounded-md w-24 m-3 p-3">
           <i className="fa-regular fa-trash-can"></i>
         </button>
       </div>
