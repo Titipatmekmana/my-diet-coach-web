@@ -7,10 +7,6 @@ const menuList = [
     pathname: "/",
   },
   {
-    icon: <span>Foood</span>,
-    pathname: "/food",
-  },
-  {
     icon: <span>Daliy</span>,
     pathname: "/daliySats",
   },
