@@ -26,7 +26,6 @@ export default function FoodFrom() {
     } else {
       const foodNameList = await foodApi.getfood(input);
       setFoodName(foodNameList.data);
-      console.log(foodNameList.data);
     }
   };
 
@@ -54,13 +53,4 @@ export default function FoodFrom() {
       </ul>
     </div>
   );
-}
-
-{
-  /* <button className="px-4 text-white bg-purple-600 rounded-full ">
-<i className="fa-solid fa-magnifying-glass"></i>
-</button>
-<button className="px-4 text-white bg-purple-600 rounded-full ">
-  <i className="fa-solid fa-xmark" />
-</button> */
 }

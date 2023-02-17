@@ -11,6 +11,9 @@ export default function TodoContent(props) {
   const { setBrakefast } = useFood();
   const { setLunch } = useFood();
   const { setDinner } = useFood();
+  const { setDeleteBrakefast } = useFood();
+  const { setDeleteLunch } = useFood();
+  const { setDeleteDinner } = useFood();
   const { meal } = useParams();
 
   const {
@@ -18,17 +21,11 @@ export default function TodoContent(props) {
   } = useAuth();
 
   const handleSumitFood = async () => {
-    console.log({ foodId: props.foodCal.id, userId: id });
-    // await axios.post("/food/foodDate", {
-    //   foodId: props.foodCal.id,
-    //   userId: id,
-    // });
-    // alert("00000000");
     await foodDateApi.getfoodData({
       foodId: props.foodCal.id,
       userId: id,
+      dailyMeal: meal,
     });
-
     if (meal === "brakefast")
       setBrakefast((prev) => [
         ...prev,
@@ -58,6 +55,39 @@ export default function TodoContent(props) {
       ]);
 
     navigate("/");
+  };
+
+  const deleteFoodList = async () => {
+    await foodDateApi.getfoodData({
+      foodId: props.foodCal.id,
+      userId: id,
+      dailyMeal: meal,
+    });
+
+    if (meal === "brakefast")
+      setDeleteBrakefast([
+        {
+          id: props.foodCal.id,
+          name: props.foodCal.name,
+          calories: props.foodCal.calories,
+        },
+      ]);
+    else if (meal === "lunch")
+      setDeleteLunch(() => [
+        {
+          id: props.foodCal.id,
+          name: props.foodCal.name,
+          calories: props.foodCal.calories,
+        },
+      ]);
+    else if (meal === "dinner")
+      setDeleteDinner(() => [
+        {
+          id: props.foodCal.id,
+          name: props.foodCal.name,
+          calories: props.foodCal.calories,
+        },
+      ]);
   };
 
   // const deleteFood = () => {};
@@ -96,7 +126,10 @@ export default function TodoContent(props) {
         >
           <i className="fa-solid fa-check"></i>
         </button>
-        <button className="px-4 text-white bg-red-600 rounded-md w-24 m-3 p-3">
+        <button
+          className="px-4 text-white bg-red-600 rounded-md w-24 m-3 p-3"
+          onClick={deleteFoodList}
+        >
           <i className="fa-regular fa-trash-can"></i>
         </button>
       </div>

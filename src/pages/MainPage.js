@@ -24,40 +24,45 @@ export default function MainPage() {
 
   const [total, setTotal] = useState(0);
 
-  const flexBmr = async () => {
-    const res = await calService.getFood();
-    setBmr(res?.data?.result);
-  };
-
   const updateCal = async () => {
+    const resBmr = await calService.getFood();
+    setBmr(resBmr?.data?.result);
+
     const cal = await foodCal.getCalFood();
+    console.log("fetchcal", cal);
+    const caldb = cal?.data[0]?.totalCalories ?? 0;
+    const bmrResult = resBmr?.data?.result ?? 0;
+
     setCalFood(cal?.data[0]?.totalCalories);
-    const t = (bmr - calFood) / 100;
-    console.log(t, calFood, bmr);
-    console.log(typeof (calFood, bmr));
+
+    const t = ((+bmrResult - +caldb) / +bmrResult) * 100;
+    console.log(bmrResult, caldb, t);
     setTotal(t);
   };
 
   useEffect(() => {
     updateCal();
-    flexBmr();
-
-    // const t = (calFood - bmr) / 100;
-    // setTotal(t);
-    // console.log(calFood ,bmr)
-    // console.log(total);
   }, [brakefast, lunch, dinner]);
 
-  // const bmr-cal
-  // const total = (calFood - bmr) / 100;
-  // const total = (calFood, bmr) => {
-  //   return (calFood - bmr) / 100;
-  // };
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const d = new Date("2021-03-25");
+  let day = days[d.getDay()];
 
   const deleteFoodItem = async (id, meal) => {
     // console.log(deleteFoodItem);
+    console.log("imma del this shit");
+    console.log("deleting ID", id);
     try {
-      await deleteFoodList.deleteFood(id);
+      const cal = await deleteFoodList.deleteFood(id);
       if (meal === "breakfast") {
         const f = brakefast.filter((el) => el.id !== id);
         setBrakefast(f);
@@ -68,6 +73,10 @@ export default function MainPage() {
         const d = dinner.filter((el) => el.id !== id);
         setDinner(d);
       }
+      console.log("fetchcal", cal);
+      setCalFood(cal?.data[0]?.totalCalories);
+      const t = (bmr - calFood) / 100;
+      setTotal(t);
     } catch (error) {
       console.log(error);
     }
@@ -78,8 +87,8 @@ export default function MainPage() {
       <h2 className="text-center text-2xl font-bold p-5 ">Home</h2>
       <h2 className="text-center text-2xl font-bold p-5 ">BMR & TDEE</h2>
 
-      {/* <div className="flex flex-row flex-auto justify-around p-10 ">
-        <div className="flex flex-col">
+      <div className="flex flex-row flex-auto justify-around p-10 ">
+        {/* <div className="flex flex-col">
           <span className="flex">M</span>
           <span className="flex">1</span>
         </div>
@@ -90,12 +99,12 @@ export default function MainPage() {
         <div className="flex flex-col">
           <span className="flex">W</span>
           <span className="flex">3</span>
+        </div> */}
+        <div className="flex flex-col  text-2xl">
+          <span className="flex">{day}</span>
+          <span className="flex">{new Date().getDate()}</span>
         </div>
-        <div className="flex flex-col">
-          <span className="flex">T</span>
-          <span className="flex">4</span>
-        </div>
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <span className="flex">F</span>
           <span className="flex">5</span>
         </div>
@@ -106,8 +115,9 @@ export default function MainPage() {
         <div className="flex flex-col">
           <span className="flex">S</span>
           <span className="flex">7</span>
-        </div>
-      </div> */}
+        </div> */}
+      </div>
+
       <div className="flex flex-row justify-around  pt-10 m-10">
         <div className="flex flex-col justify-center items-center space-y-5  text-black font-bold text-2xl">
           <i className="flex fa-solid fa-utensils"></i>
@@ -118,7 +128,7 @@ export default function MainPage() {
         <div>
           <div className="mx-[100px] w-[150px] h-[150px] flex ">
             <CircularProgressbar
-              value={"" + total}
+              value={total}
               text={Math.floor(bmr)}
               styles={{
                 background: {
@@ -188,17 +198,19 @@ export default function MainPage() {
       </div>
 
       {/* ///////////////////////////////////////////// */}
+
+      {/* <div className="flex-row justify-evenly"> */}
       <span className="pt-4 text-black font-bold text-x pl-10">
-        BrakeFast
+        Break Fast
         <Link
-          className="pt-9 text-black font-bold text-x pl-10 "
+          className="pt-9 text-black font-bold text-x ml-5 "
           to={"/food/brakefast"}
         >
           <i className="fa-solid fa-plus"></i>
         </Link>
       </span>
 
-      {brakefast.map((el) => (
+      {brakefast?.map((el) => (
         <div className="flex justify-around h-20 bg-gradient-to-r from-sky-500 to-indigo-500 p-3 drop-shadow-xl rounded-lg mx-5 my-3 ">
           <div className="flex gap-3 content-center	">
             <span className=" pt-4 text-white font-bold	text-xl">
@@ -221,10 +233,10 @@ export default function MainPage() {
         </div>
       ))}
 
-      <span className="pt-4 text-black font-bold text-x pl-10">
+      <span className="pt-4 text-black font-bold text-xl pl-10">
         Lunch
         <Link
-          className="pt-9 text-black font-bold text-x pl-10 "
+          className="pt-9 text-black font-bold text-xl ml-5 "
           to={"/food/lunch"}
         >
           <i className="fa-solid fa-plus"></i>
@@ -255,10 +267,10 @@ export default function MainPage() {
         </div>
       ))}
 
-      <span className="pt-4 text-black font-bold text-x pl-10">
+      <span className="pl-10 text-black font-bold  ">
         Dinner
         <Link
-          className="pt-9 text-black font-bold text-x pl-10 "
+          className=" text-black font-bold text-xl ml-5 "
           to={"/food/dinner"}
         >
           <i className="fa-solid fa-plus"></i>
@@ -268,7 +280,7 @@ export default function MainPage() {
       {dinner.map((el) => (
         <div className="flex justify-around h-20 bg-gradient-to-r from-sky-500 to-indigo-500 p-3 drop-shadow-xl rounded-lg mx-5 my-3 ">
           <div className="flex gap-3 content-center	">
-            <span className="pt-4 text-white font-bold	text-xl">
+            <span className="pt-4 text-white font-bold	">
               Name:
               <span>{el.name}</span>
             </span>
@@ -288,6 +300,7 @@ export default function MainPage() {
           </button>
         </div>
       ))}
+      {/* </div> */}
 
       {/* <button className="flex" onClick={}>dele</button> */}
     </div>

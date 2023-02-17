@@ -1,3 +1,7 @@
 import axios from "../config/axios";
 
-export const deleteFood = (idFood) => axios.delete(`/food/${idFood}`);
+export const deleteFood = (idFood) => {
+  console.log("kuyyyyy");
+  console.log(idFood);
+  return axios.delete(`/food/${idFood}`);
+};

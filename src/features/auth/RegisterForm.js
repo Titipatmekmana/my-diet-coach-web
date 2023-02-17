@@ -62,7 +62,7 @@ export default function RegisterForm({ doClose }) {
   return (
     <form className="mt-6 m-5" onSubmit={handleSubmitForm}>
       <h1 className="text-3xl font-semibold text-center text-purple-700 ">
-        Sing Up
+        Sign In
       </h1>
 
       <div className="mb-2">
