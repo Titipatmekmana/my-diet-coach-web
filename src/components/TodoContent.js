@@ -21,74 +21,46 @@ export default function TodoContent(props) {
   } = useAuth();
 
   const handleSumitFood = async () => {
-    await foodDateApi.getfoodData({
+    const {
+      data: { FoodResult, userFoodData },
+    } = await foodDateApi.getfoodData({
       foodId: props.foodCal.id,
       userId: id,
       dailyMeal: meal,
     });
+    console.log(userFoodData, "userFoodData");
     if (meal === "brakefast")
       setBrakefast((prev) => [
         ...prev,
         {
-          id: props.foodCal.id,
-          name: props.foodCal.name,
-          calories: props.foodCal.calories,
+          id: userFoodData.id,
+          name: FoodResult.name,
+          calories: FoodResult.calories,
         },
       ]);
     else if (meal === "lunch")
       setLunch((prev) => [
         ...prev,
         {
-          id: props.foodCal.id,
-          name: props.foodCal.name,
-          calories: props.foodCal.calories,
+          id: userFoodData.id,
+          name: FoodResult.name,
+          calories: FoodResult.calories,
         },
       ]);
     else if (meal === "dinner")
       setDinner((prev) => [
         ...prev,
         {
-          id: props.foodCal.id,
-          name: props.foodCal.name,
-          calories: props.foodCal.calories,
+          id: userFoodData.id,
+          name: FoodResult.name,
+          calories: FoodResult.calories,
         },
       ]);
 
     navigate("/");
   };
 
-  const deleteFoodList = async () => {
-    await foodDateApi.getfoodData({
-      foodId: props.foodCal.id,
-      userId: id,
-      dailyMeal: meal,
-    });
-
-    if (meal === "brakefast")
-      setDeleteBrakefast([
-        {
-          id: props.foodCal.id,
-          name: props.foodCal.name,
-          calories: props.foodCal.calories,
-        },
-      ]);
-    else if (meal === "lunch")
-      setDeleteLunch(() => [
-        {
-          id: props.foodCal.id,
-          name: props.foodCal.name,
-          calories: props.foodCal.calories,
-        },
-      ]);
-    else if (meal === "dinner")
-      setDeleteDinner(() => [
-        {
-          id: props.foodCal.id,
-          name: props.foodCal.name,
-          calories: props.foodCal.calories,
-        },
-      ]);
-  };
+  // const deleteFoodList = async () => {};
 
   // const deleteFood = () => {};
   // const deleSubmitFood = ()  props.foodCal.name || props.foodCal.carbs;
@@ -126,12 +98,12 @@ export default function TodoContent(props) {
         >
           <i className="fa-solid fa-check"></i>
         </button>
-        <button
+        {/* <button
           className="px-4 text-white bg-red-600 rounded-md w-24 m-3 p-3"
           onClick={deleteFoodList}
         >
           <i className="fa-regular fa-trash-can"></i>
-        </button>
+        </button> */}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useEffect, useState, createContext } from "react";
 import { getDatliyMeal } from "../apis/foodData-api";
+import * as calService from "../apis/cal-api";
 
 export const FoodContext = createContext();
 
@@ -7,6 +8,8 @@ export default function FoodContextProvider({ children }) {
   const [brakefast, setBrakefast] = useState([]);
   const [lunch, setLunch] = useState([]);
   const [dinner, setDinner] = useState([]);
+  const [bmr, setBmr] = useState(0);
+  const [backupBmr, setBackupBmr] = useState(0);
 
   useEffect(() => {
     const get = async () => {
@@ -41,15 +44,32 @@ export default function FoodContextProvider({ children }) {
       setBrakefast(bf);
       setDinner(lf);
       setLunch(df);
-      console.log(bf);
     };
-
+    const setUp = async () => {
+      console.log("updateCal");
+      const resBmr = await calService.getFood();
+      setBmr(resBmr?.data?.result);
+      setBackupBmr(resBmr?.data?.result);
+      console.log(resBmr?.data?.result, "sdfsdfsdfsdf");
+    };
+    setUp();
     get();
   }, []);
 
   return (
     <FoodContext.Provider
-      value={{ brakefast, setBrakefast, lunch, setLunch, dinner, setDinner }}
+      value={{
+        brakefast,
+        setBrakefast,
+        lunch,
+        setLunch,
+        dinner,
+        setDinner,
+        bmr,
+        setBmr,
+        backupBmr,
+        setBackupBmr,
+      }}
     >
       {children}
     </FoodContext.Provider>

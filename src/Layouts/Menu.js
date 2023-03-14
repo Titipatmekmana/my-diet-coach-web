@@ -6,10 +6,10 @@ const menuList = [
     icon: <span>Main Page</span>,
     pathname: "/",
   },
-  {
-    icon: <span>Daliy</span>,
-    pathname: "/daliySats",
-  },
+  // {
+  //   icon: <span>Daliy</span>,
+  //   pathname: "/daliySats",
+  // },
   {
     icon: <span>Profile User</span>,
     pathname: "/userProfile",
